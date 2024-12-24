@@ -1,0 +1,23 @@
+{
+  "name": "kos_blog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/js/server.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/js/server.js",
+    "dev": "npx nodemon src/js/server.js"
+  },
+  "private": true,
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "express-ejs-layouts": "^2.5.1",
+    "express-layouts": "^1.0.0",
+    "fetch": "^1.1.0",
+    "mysql2": "^3.11.5",
+    "nodemon": "^3.1.9"
+  }
+}

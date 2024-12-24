@@ -1,0 +1,69 @@
+<form id="blog-form" class="blog-form">
+    <div class="field">
+        <label class="label" for="title">Title</label>
+        <div class="control">
+            <input type="text" id="title" name="title" class="input" placeholder="Enter the blog title" required>
+        </div>
+    </div>
+
+    <div class="field">
+        <label class="label" for="content">Content</label>
+        <div class="control">
+            <textarea id="content" name="content" class="textarea" placeholder="Write your blog content here..." required></textarea>
+        </div>
+    </div>
+
+    <div class="field">
+        <div class="control">
+            <button type="submit" class="button is-primary">Submit</button>
+        </div>
+    </div>
+</form>
+
+<script>
+    const formatWithBreaks = (content) => {
+        return content.replace(/\r\n?/g, "\n").replace(/\n/g, '<br>');
+    };
+
+    const form = document.getElementById('blog-form');
+
+    form.addEventListener('submit', (event) => {
+        console.log('Form submit event triggered');
+
+        console.log('Default prevented');
+
+        const title = document.getElementById('title').value;
+        const content = document.getElementById('content').value;
+        console.log('Title:', title);
+        console.log('Content:', content);
+        event.preventDefault();
+        createBlog(title, content)
+            .then(() => {
+                console.log('Blog created Successfully');
+                form.reset();
+            })
+            .catch(err => {
+                console.log('Error Creating Blog:', err);
+                alert('Failed to create blog, TRY AGAIN!!')
+            });
+    });
+
+    function createBlog(title, content) {
+        const formattedContent = formatWithBreaks(content);
+        return fetch('/new', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({title, content: formattedContent}),
+        }).then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            console.log("Blog created Successfully");
+        });
+    }
+</script>
+
+
+

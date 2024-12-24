@@ -1,0 +1,52 @@
+<form id="blog-form" class="blog-form">
+    <div class="field">
+        <label class="label" for="title">Title</label>
+        <div class="control">
+            <input type="text" id="title" name="title" class="input" value="<%= blog.title %>" required>
+        </div>
+    </div>
+
+    <div class="field">
+        <label class="label" for="content">Content</label>
+        <div class="control">
+            <textarea id="content" name="content" class="textarea" required><%= blog.content %></textarea>
+        </div>
+    </div>
+
+    <div class="field">
+        <div class="control">
+            <button type="submit" class="button is-primary">Submit</button>
+        </div>
+    </div>
+    <input type="hidden" id="blogId" value="<%= blog.id %>">
+</form>
+
+
+<script type="module">
+
+
+    const form = document.getElementById('blog-form');
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const formData = new FormData(form);
+        const title = formData.get('title');
+        const content = formData.get('content');
+        const id = document.getElementById('blogId').value;
+        await updateBlog(id, title, content);
+        window.location.href = '/';
+    });
+
+
+    function updateBlog(blogId, title, content) {
+        return fetch(`/edit/${blogId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ title, content, id: blogId }),
+        });
+    }
+</script>
+
+
+
