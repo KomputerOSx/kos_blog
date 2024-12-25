@@ -52,7 +52,7 @@ function blogFormatter(blog) {
         <h2 class="title is-4">${blog.title}</h2>
         <p>${blog.content}</p>
         <br>
-        <a href="/blog/${blog.id}" class="button is-primary show-blog">Read more</a>
+        <a href="/blogs/${blog.id}" class="button is-primary show-blog">Read more</a>
         <a class="button is-danger deleteBlog">Delete</a>
     `;
     return blogItem;
@@ -60,7 +60,7 @@ function blogFormatter(blog) {
 
 
 function deleteBlog(id) {
-    return fetch(`/blog/${id}`, {
+    return fetch(`/blogs/${id}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
